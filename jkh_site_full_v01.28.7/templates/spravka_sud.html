@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block title %}Расчёт взыскиваемой суммы{% endblock %}
+
+{% block content %}
+<!-- Общий каркас сайта -->
+<script src="layout.js"></script>
+<script>
+    // Рисуем левое меню, верхнюю панель и открываем .content
+    renderLayout();
+</script>
+
+<div class="sheet-wrapper">
+
+    <!-- Шапка организации -->
+    <div class="org-header">
+        <div><span class="label">Наименование организации:</span> <span id="orgName"></span></div>
+        <div><span class="label">ИНН:</span> <span id="orgInn"></span></div>
+    </div>
+        <div>
+            <span class="label">ИНН</span>
+            <span id="orgInn">4909093352</span>
+        </div>
+    </div>
+
+    <!-- Заголовок -->
+    <div class="sheet-title">
+        РАСЧЁТ ВЗЫСКИВАЕМОЙ СУММЫ
+    </div>
+
+    <!-- Блок с ФИО, адресом и т.д. -->
+    <table class="sheet-table no-border">
+        <tr>
+            <td style="width:120px;">Ф.И.О.</td>
+            <td id="fio"></td>
+        </tr>
+        <tr>
+            <td>Адрес:</td>
+            <td id="address"></td>
+        </tr>
+        <tr>
+            <td>Квартира имеет общую полезную площадь</td>
+            <td>
+                <span id="square"></span> кв.м.
+            </td>
+        </tr>
+        <tr>
+            <td>Состоит из</td>
+            <td id="rooms"></td>
+        </tr>
+        <tr>
+            <td>Право собственности:</td>
+            <td id="share"></td>
+        </tr>
+        <tr>
+            <td>Расчёт на:</td>
+            <td>
+                <span id="calcDate"></span>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+
+    <!-- Таблица начислений/оплаты -->
+    <table class="sheet-table" id="debtTable">
+        <thead>
+        <tr>
+            <th rowspan="2" style="width:60px;">Год/месяц</th>
+            <th colspan="3">Оплачено</th>
+            <th rowspan="2">Начислено пени</th>
+            <th colspan="3">Месячная задолженность</th>
+        </tr>
+        <tr>
+            <th>Начислено</th>
+            <th>Сумма</th>
+            <th>Дата</th>
+            <th>по обязательному платежу</th>
+            <th>по пени</th>
+            <th>Всего месячная задолженность</th>
+        </tr>
+        </thead>
+        <tbody id="debtRows">
+        <!-- сюда JS вставит строки по месяцам -->
+        </tbody>
+        <tfoot>
+        <tr class="highlight-row">
+            <td class="align-right"><b>Всего:</b></td>
+            <td class="align-right" id="sumAccrued"></td>
+            <td class="align-right" id="sumPaid"></td>
+            <td></td>
+            <td class="align-right" id="sumPenalty"></td>
+            <td class="align-right" id="sumMainDebt"></td>
+            <td class="align-right" id="sumDebtPenalty"></td>
+            <td class="align-right" id="sumTotalDebt"></td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <!-- Итоги по состоянию на дату -->
+    <div class="summary-block">
+        <div>
+            По состоянию на
+            <span id="stateDate"></span>
+            задолженность по оплате за содержание общего имущества многоквартирного дома составляет:
+        </div>
+        <br>
+        <table>
+            <tr>
+                <td>Долг по основному платежу:</td>
+                <td class="align-right" id="mainDebt"></td>
+            </tr>
+            <tr>
+                <td>Долг по пени:</td>
+                <td class="align-right" id="peniDebt"></td>
+            </tr>
+            <tr>
+                <td><b>Долг всего:</b></td>
+                <td class="align-right" id="totalDebt"></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Примечания -->
+    <div class="notes-block">
+        <b>Примечание по абоненту:</b><br>
+        <textarea id="notes" placeholder="Здесь можно сохранить текстовую заметку по абоненту (хранится в localStorage)."></textarea>
+    </div>
+
+    <!-- Исключённые периоды -->
+    <div class="exclude-block">
+        <b>Исключённые периоды:</b>
+        <table id="excludeTable">
+            <thead>
+            <tr>
+                <th>Период с</th>
+                <th>по</th>
+                <th>Причина</th>
+                <th>Удалить</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- сюда JS подставит строки -->
+            </tbody>
+        </table>
+        <div class="exclude-actions">
+            <button type="button" id="addExcludeBtn">Добавить период</button>
+        </div>
+    </div>
+
+    <!-- Подписи -->
+    <div class="footer-sign">
+        <div>
+            МП
+        </div>
+        <br>
+        <div>
+            Председатель правления
+            <span class="line" id="chairmanName">В.Б.Тремов</span>
+            <span>подпись</span>
+        </div>
+        <br><br>
+        <div>
+            <span id="docDate"></span> г.
+        </div>
+    </div>
+</div>
+
+<script src="data.js"></script>
+<script src="spravka_sud.js"></script>
+
+<script>
+    // Закрываем .content, начатый в renderLayout()
+    closeLayout();
+</script>
+{% endblock %}

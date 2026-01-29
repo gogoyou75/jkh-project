@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Исключить период расчёта{% endblock %}
+
+{% block content %}
+<h2>ИСКЛЮЧИТЬ ПЕРИОД</h2>
+
+<div class="box-border" style="max-width:600px;">
+    <h4>ИСКЛЮЧИТЬ ПЕРИОД РАСЧЁТА</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>начало</th>
+                <th>конец</th>
+                <th>причина</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>12.02.2025</td>
+                <td>18.03.2025</td>
+                <td>Предоставлена справка отпуск</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn">добавить / редактировать</button>
+</div>
+{% endblock %}
