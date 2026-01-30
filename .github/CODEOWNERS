@@ -1,15 +1,2 @@
-# Владелец всего репозитория
-* @ваш-username
-
-# Владельцы конкретных папок
-/docs/ @team-docs
-/src/ @dev-team @tech-lead
-
-# Владельцы конкретных файлов
-package.json @devops-team
-README.md @team-lead @product-owner
-
-# Владельцы по расширению файлов
-*.js @frontend-team
-*.py @backend-team
-*.md @documentation-team
+# Документация — нормативная зона
+docs/ @gogoyou75
